@@ -5,3 +5,5 @@
 [Addition of two numbers.docx](https://github.com/user-attachments/files/17110217/Addition.of.two.numbers.docx)
 
 [Float point.docx](https://github.com/user-attachments/files/17111652/Float.point.docx)
+
+[Arithmetic Operation.docx](https://github.com/user-attachments/files/17111908/Arithmetic.Operation.docx)
