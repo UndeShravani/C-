@@ -25,3 +25,8 @@
 13 [Function Overriding.docx](https://github.com/user-attachments/files/17115506/Function.Overriding.docx)
 
 14 [Virtual Function.docx](https://github.com/user-attachments/files/17115540/Virtual.Function.docx)
+
+15 [Dynamic binding.docx](https://github.com/user-attachments/files/17115967/Dynamic.binding.docx)
+
+16 [Inheritance.docx](https://github.com/user-attachments/files/17115979/Inheritance.docx)
+
