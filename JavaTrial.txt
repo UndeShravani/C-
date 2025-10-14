@@ -1,0 +1,410 @@
+15/10/2025 
+Problem 1: Write a program to input marks of students in 5 subjects, 
+calculate total, average, and grade using methods and handle invalid marks 
+using exception handling.
+import java.util.Scanner;
+class Student{
+    static int Total(int[] marks){
+        int sum = 0;
+        for(int i=0; i<marks.length; i++){
+            sum += marks[i];
+        }
+        return sum;
+    }
+    static double average(int sum, int n){
+        double a = sum/n;
+        return a;
+    }
+    static String Grade(double a){
+        if(a>=90 && a<=100)
+        return "A";
+        else if(a>=80 && a<90)
+        return "B";
+        else if(a>=70 && a<80)
+        return "C";
+        else if(a>=50 && a<70)
+        return "D";
+        else
+        return "Fail";
+
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int marks[] = new int[5];
+        System.out.println("Enter marks of 5 subjects: ");
+        for(int i=0; i<5; i++){
+            marks[i] = sc.nextInt();
+        }
+        try{
+            for(int i=0; i<5; i++){
+                if(marks[i]<0 || marks[i]>100){
+                    throw new Exception("Invalid input: Marks must be in between 0 to 100!");
+                }
+            }
+            int sum = Total(marks);
+            double a = average(sum, 5);
+            String g = Grade(a);
+            System.out.println("Total Marks: " + sum);
+            System.out.println("Average marks: " + a);
+            System.out.println("Your grade: " + g);
+        }catch (Exception e){
+            System.out.println("Error!" + e.getMessage());
+        }
+        
+
+    }
+    
+}
+ 
+Problem 2: Accept item names, price, and quantity. Calculate total, apply a 
+discount if total > 2000, and display formatted bill using methods.
+import java.util.Scanner;
+class Bill{
+    static double Total(double price[], double q[]){
+        double total = 0;
+        for(int i=0; i<price.length; i++){
+            total += price[i]*q[i];
+        }
+        return total;
+    }
+    static double Discount(double total){
+        if(total>2000){
+            total = total - (total*0.1);
+        }
+        return total;
+    }
+    static void printBill(String items[], double price[], double q[], double total){
+        System.out.println("\n-----Bill-----");
+        System.out.printf("%-10s %-10s %-10s %-10s\n", "Item", "Price", "Quantity", "Amount");
+        for(int i=0; i<items.length; i++){
+            double amount = price[i]*q[i];
+            System.out.printf("%-10s %-10.2f %-10.2f %-10.2f\n", items[i], price[i], q[i], amount);
+        }
+        System.out.println("---------------------");
+        System.out.println("Total Amount: " + total);
+        System.out.println("---------------------");
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter number of items: ");
+        int n = sc.nextInt();
+        sc.nextLine();
+        String items[] = new String[n];
+        double price[] = new double[n];
+        double q[] = new double[n];
+        for(int i=0; i<n; i++){
+            System.out.println("Enter name of items: ");
+            items[i] = sc.nextLine();
+            System.out.println("Enter price of items: ");
+            price[i] = sc.nextDouble();
+            System.out.println("Enter quantity of items: ");
+            q[i] = sc.nextDouble();
+        }
+        double total = Total(price, q);
+        total = Discount(total);
+        printBill(items, price, q, total);
+        
+    }
+}
+
+Problem 3: Take a sentence and count the number of words and occurrences 
+of a specific word using arrays and string methods. 
+import java.util.Scanner;
+
+class WordCount {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Step 1: Take sentence input
+        System.out.println("Enter a sentence:");
+        String sentence = sc.nextLine();
+
+        // Step 2: Split sentence into words
+        String words[] = sentence.split(" "); // space as separator
+
+        // Step 3: Count total words
+        int totalWords = words.length;
+        System.out.println("Total words: " + totalWords);
+
+        // Step 4: Take specific word to count
+        System.out.println("Enter a word to count its occurrences:");
+        String search = sc.nextLine();
+
+        // Step 5: Count occurrences
+        int count = 0;
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].equalsIgnoreCase(search)) { // case-insensitive
+                count++;
+            }
+        }
+
+        System.out.println("The word \"" + search + "\" occurs " + count + " times.");
+    }
+}
+
+Problem 4: Check password strength: Length ≥ 8, contains uppercase, 
+lowercase, digit, and symbol, throw exception if invalid. 
+import java.util.Scanner;
+
+class PasswordCheck {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter a password: ");
+        String password = sc.nextLine();
+
+        try {
+            if (password.length() < 8) {
+                throw new Exception("Password too short (minimum 8 characters).");
+            }
+
+            int upper = 0, lower = 0, digit = 0, symbol = 0;
+
+            for (int i = 0; i < password.length(); i++) {
+                char ch = password.charAt(i);
+                if (ch >= 'A' && ch <= 'Z') upper++;
+                else if (ch >= 'a' && ch <= 'z') lower++;
+                else if (ch >= '0' && ch <= '9') digit++;
+                else symbol++;
+            }
+
+            if (upper == 0 || lower == 0 || digit == 0 || symbol == 0) {
+                throw new Exception("Password must contain uppercase, lowercase, digit, and symbol.");
+            }
+
+            System.out.println("Password is strong!");
+        } catch (Exception e) {
+            System.out.println("Error! " + e.getMessage());
+        }
+    }
+}
+
+Problem 5: Simulate ATM operations like deposit, withdraw, and check 
+balance. Use methods for each operation and handle insufficient balance 
+with exception handling. 
+import java.util.Scanner;
+
+class ATM {
+    
+    static double deposit(double balance, double amount) {
+        balance += amount;
+        System.out.println("Amount deposited: " + amount);
+        return balance;
+    }
+
+    static double withdraw(double balance, double amount) throws Exception {
+        if (amount > balance) {
+            throw new Exception("Insufficient balance!");
+        }
+        balance -= amount;
+        System.out.println("Amount withdrawn: " + amount);
+        return balance;
+    }
+
+    static void checkBalance(double balance) {
+        System.out.println("Current balance: " + balance);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        double balance = 0;  // initial balance
+
+        while (true) {
+            System.out.println("\n--- ATM Menu ---");
+            System.out.println("1. Deposit");
+            System.out.println("2. Withdraw");
+            System.out.println("3. Check Balance");
+            System.out.println("4. Exit");
+            System.out.print("Choose an option: ");
+            int choice = sc.nextInt();
+
+            try {
+                switch (choice) {
+                    case 1:
+                        System.out.print("Enter amount to deposit: ");
+                        double dep = sc.nextDouble();
+                        balance = deposit(balance, dep);
+                        break;
+                    case 2:
+                        System.out.print("Enter amount to withdraw: ");
+                        double wd = sc.nextDouble();
+                        balance = withdraw(balance, wd);
+                        break;
+                    case 3:
+                        checkBalance(balance);
+                        break;
+                    case 4:
+                        System.out.println("Thank you for using ATM. Goodbye!");
+                        System.exit(0);
+                        break;
+                    default:
+                        System.out.println("Invalid option!");
+                }
+            } catch (Exception e) {
+                System.out.println("Error! " + e.getMessage());
+            }
+        }
+    }
+}
+
+Problem 6: Accept basic salary and compute HRA, DA, PF, and gross salary. 
+Display results using methods and handle invalid inputs with exceptions. 
+import java.util.Scanner;
+
+class Salary {
+    
+    // Method to calculate HRA (House Rent Allowance)
+    static double calculateHRA(double basic) {
+        return basic * 0.1; // 10% of basic
+    }
+
+    // Method to calculate DA (Dearness Allowance)
+    static double calculateDA(double basic) {
+        return basic * 0.08; // 8% of basic
+    }
+
+    // Method to calculate PF (Provident Fund)
+    static double calculatePF(double basic) {
+        return basic * 0.05; // 5% of basic
+    }
+
+    // Method to calculate gross salary
+    static double calculateGross(double basic, double hra, double da, double pf) {
+        return basic + hra + da - pf;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        try {
+            System.out.print("Enter basic salary: ");
+            double basic = sc.nextDouble();
+
+            if (basic < 0) {
+                throw new Exception("Invalid input! Salary cannot be negative.");
+            }
+
+            double hra = calculateHRA(basic);
+            double da = calculateDA(basic);
+            double pf = calculatePF(basic);
+            double gross = calculateGross(basic, hra, da, pf);
+
+            System.out.println("\n--- Salary Details ---");
+            System.out.println("Basic Salary: " + basic);
+            System.out.println("HRA: " + hra);
+            System.out.println("DA: " + da);
+            System.out.println("PF: " + pf);
+            System.out.println("Gross Salary: " + gross);
+
+        } catch (Exception e) {
+            System.out.println("Error! " + e.getMessage());
+        }
+    }
+}
+
+Problem 7: Accept total bill and membership type (Silver/Gold/Platinum) and 
+apply discounts accordingly using if-else and methods. 
+import java.util.Scanner;
+
+class MembershipDiscount {
+
+    // Method to calculate discount
+    static double applyDiscount(double total, String membership) {
+        double discount = 0;
+
+        if (membership.equalsIgnoreCase("Silver")) {
+            discount = total * 0.05; // 5% discount
+        } else if (membership.equalsIgnoreCase("Gold")) {
+            discount = total * 0.10; // 10% discount
+        } else if (membership.equalsIgnoreCase("Platinum")) {
+            discount = total * 0.15; // 15% discount
+        } else {
+            discount = 0; // no discount for invalid membership
+        }
+
+        return total - discount;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        try {
+            System.out.print("Enter total bill amount: ");
+            double total = sc.nextDouble();
+            sc.nextLine(); // consume newline
+
+            if (total < 0) {
+                throw new Exception("Invalid input! Total bill cannot be negative.");
+            }
+
+            System.out.print("Enter membership type (Silver/Gold/Platinum): ");
+            String membership = sc.nextLine();
+
+            double finalAmount = applyDiscount(total, membership);
+
+            System.out.println("\n--- Bill Details ---");
+            System.out.println("Total Bill: " + total);
+            System.out.println("Membership Type: " + membership);
+            System.out.println("Amount after Discount: " + finalAmount);
+
+        } catch (Exception e) {
+            System.out.println("Error! " + e.getMessage());
+        }
+    }
+}
+
+Problem 8: For ‘n’ products, store product name, price, and quantity in arrays. 
+Calculate total stock value and handle out-of-stock errors via exception 
+handling.
+import java.util.Scanner;
+
+class ProductStock {
+
+    // Method to calculate total stock value
+    static double calculateTotalValue(double price[], int qty[]) throws Exception {
+        double total = 0;
+        for (int i = 0; i < price.length; i++) {
+            if (qty[i] == 0) {
+                throw new Exception("Product at index " + (i + 1) + " is out of stock!");
+            }
+            total += price[i] * qty[i];
+        }
+        return total;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        try {
+            System.out.print("Enter number of products: ");
+            int n = sc.nextInt();
+            sc.nextLine(); // consume newline
+
+            String products[] = new String[n];
+            double price[] = new double[n];
+            int qty[] = new int[n];
+
+            for (int i = 0; i < n; i++) {
+                System.out.print("Enter product name: ");
+                products[i] = sc.nextLine();
+                System.out.print("Enter price: ");
+                price[i] = sc.nextDouble();
+                System.out.print("Enter quantity: ");
+                qty[i] = sc.nextInt();
+                sc.nextLine(); // consume newline
+            }
+
+            double totalValue = calculateTotalValue(price, qty);
+
+            System.out.println("\n--- Stock Details ---");
+            System.out.println("Product\tPrice\tQuantity\tValue");
+            for (int i = 0; i < n; i++) {
+                double value = price[i] * qty[i];
+                System.out.println(products[i] + "\t" + price[i] + "\t" + qty[i] + "\t" + value);
+            }
+
+            System.out.println("Total Stock Value: " + totalValue);
+
+        } catch (Exception e) {
+            System.out.println("Error! " + e.getMessage());
+        }
+    }
+}
